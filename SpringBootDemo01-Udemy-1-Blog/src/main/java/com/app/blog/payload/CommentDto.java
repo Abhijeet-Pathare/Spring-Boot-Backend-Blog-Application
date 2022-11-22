@@ -1,12 +1,27 @@
 package com.app.blog.payload;
 
-import com.app.blog.model.Post;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class CommentDto {
 	
 	private long id;
+	//name should not be not null or empty
+	@NotEmpty(message="Name should not be null or empty")
 	private String name;
+	
+	//email should not be not null or empty
+	// email field validation
+	@NotEmpty(message="Email should not be null or empty")
+	@Email
 	private String email;
+	
+
+	//comment body should not be not null or empty
+	// comment body must be minimum 10 characters
+	@NotEmpty
+	@Size(min=10, message="Comment body should contain at least 10 characters")
 	private String body;
 	
 	public CommentDto() {

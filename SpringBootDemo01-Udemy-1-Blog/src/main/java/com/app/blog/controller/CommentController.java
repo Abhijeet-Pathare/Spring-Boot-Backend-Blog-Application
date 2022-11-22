@@ -2,6 +2,8 @@ package com.app.blog.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +32,8 @@ public class CommentController {
 	
 	@PostMapping("/posts/{postId}/comments")
 	public ResponseEntity<CommentDto> createComment(@PathVariable(value="postId")long postId,
-													@RequestBody CommentDto commentDto){
-		return new ResponseEntity<CommentDto>(commentService.createComment(postId, commentDto),HttpStatus.CREATED);
+													@Valid @RequestBody CommentDto commentDto){
+		return new ResponseEntity<>(commentService.createComment(postId, commentDto),HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/posts/{postId}/comments")
@@ -51,7 +53,7 @@ public class CommentController {
 	}
 	
 	@PutMapping("/posts/{postId}/comments/{id}")
-	public ResponseEntity<CommentDto> updateComment(@PathVariable(value="postId") long postId,@PathVariable(value="id") long id,@RequestBody CommentDto commentDto){
+	public ResponseEntity<CommentDto> updateComment(@PathVariable(value="postId") long postId,@PathVariable(value="id") long id,@Valid @RequestBody CommentDto commentDto){
 		
 		CommentDto updatedCommentDto = commentService.updateComment(postId, id, commentDto);
 		return new ResponseEntity<>(updatedCommentDto, HttpStatus.OK);	
